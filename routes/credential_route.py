@@ -25,14 +25,16 @@ async def get_credential(credential_id) :
         "credential" : str(result)
     }
 
-@router.get("/user/user_id") 
+@router.get("/user/{user_id}") 
 async def get_user_credentials(user_id : str) :
     result = await fetch_user_credentials(user_id)
+    for cred in result:
+        cred["_id"] = str(cred["_id"])
     return {
         "user-credentials" : str(result)
     }
 
-@router.delete("/{credetial_id}") 
+@router.delete("/{credential_id}") 
 async def delete_credential(credential_id) :
     result = await delete_credential_by_id(credential_id)
     return {
